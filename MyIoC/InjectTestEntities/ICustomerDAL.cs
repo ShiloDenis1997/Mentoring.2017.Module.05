@@ -1,4 +1,6 @@
-﻿namespace MyIoC
+﻿using MyIoC.Attributes;
+
+namespace MyIoC.InjectTestEntities
 {
     public interface ICustomerDAL
     {

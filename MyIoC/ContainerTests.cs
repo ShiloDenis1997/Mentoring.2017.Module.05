@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
+using MyIoC.InjectTestEntities;
 
 namespace MyIoC
 {
@@ -11,7 +12,7 @@ namespace MyIoC
         [TestInitialize]
         public void Init()
         {
-            _container = new Container();
+            _container = new Container(new SimpleActivator());
         }
 
         [TestMethod]
@@ -124,6 +125,20 @@ namespace MyIoC
             Assert.IsNotNull(customerBll.CustomerDAL.GetType() == typeof(CustomerDAL));
             Assert.IsNotNull(customerBll.Logger);
             Assert.IsNotNull(customerBll.Logger.GetType() == typeof(Logger));
+        }
+
+        [TestMethod]
+        public void EmitActivator_ConstructorInjectionTest()
+        {
+            _container = new Container(new EmitActivator());
+            _container.AddType(typeof(CustomerBLL));
+            _container.AddType(typeof(Logger));
+            _container.AddType(typeof(CustomerDAL), typeof(ICustomerDAL));
+
+            var customerBll = _container.CreateInstance<CustomerBLL>();
+
+            Assert.IsNotNull(customerBll);
+            Assert.IsTrue(customerBll.GetType() == typeof(CustomerBLL));
         }
     }
 }

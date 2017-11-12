@@ -3,15 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using MyIoC.Attributes;
+using MyIoC.Interfaces;
 
 namespace MyIoC
 {
     public class Container
     {
         private readonly IDictionary<Type, Type> _typesDictionary;
+        private readonly IActivator _activator;
 
-        public Container()
+        public Container(IActivator activator)
         {
+            _activator = activator;
             _typesDictionary = new Dictionary<Type, Type>();
         }
 
@@ -102,10 +106,6 @@ namespace MyIoC
         private ConstructorInfo GetConstructor(Type type)
         {
             ConstructorInfo[] constructors = type.GetConstructors();
-            if (constructors.Length > 1)
-            {
-                throw new DIException($"Several constructors founded in type {type.FullName}");
-            }
 
             if (constructors.Length == 0)
             {
@@ -121,7 +121,7 @@ namespace MyIoC
             List<object> parametersInstances = new List<object>(parameters.Length);
             Array.ForEach(parameters, p => parametersInstances.Add(ConstructInstanceOfType(p.ParameterType)));
 
-            object instance = Activator.CreateInstance(type, parametersInstances.ToArray());
+            object instance = _activator.CreateInstance(type, parametersInstances.ToArray());
             return instance;
         }
     }
