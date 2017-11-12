@@ -24,8 +24,8 @@ namespace MyIoC
             var types = assembly.ExportedTypes;
             foreach (var type in types)
             {
-                var importAttribute = type.GetCustomAttribute<ImportConstructorAttribute>();
-                if (importAttribute != null || HasImportProperties(type))
+                var constructorImportAttribute = type.GetCustomAttribute<ImportConstructorAttribute>();
+                if (constructorImportAttribute != null || HasImportProperties(type))
                 {
                     _typesDictionary.Add(type, type);
                 }
