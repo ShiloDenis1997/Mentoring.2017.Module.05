@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Reflection;
-using MyIoC.InjectTestEntities;
+﻿using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyIoC.Test.InjectTestEntities;
 
-namespace MyIoC
+namespace MyIoC.Test
 {
     [TestClass]
     public class ContainerTests

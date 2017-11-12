@@ -1,6 +1,6 @@
 ﻿using MyIoC.Attributes;
 
-namespace MyIoC.InjectTestEntities
+namespace MyIoC.Test.InjectTestEntities
 {
     [Export]
     public class Logger
