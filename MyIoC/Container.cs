@@ -65,8 +65,7 @@ namespace MyIoC
         {
             if (!_typesDictionary.ContainsKey(type))
             {
-                throw new DIException($"Cannot create instance of {type.FullName}. " +
-                    "Dependency is not provided");
+                throw new DIException($"Cannot create instance of {type.FullName}. Dependency is not provided");
             }
 
             Type dependendType = _typesDictionary[type];
